@@ -1,0 +1,667 @@
+/* ==========================================================
+   1. VARIABLES & RESET
+   These custom properties (variables) hold our color palette,
+   fonts, and spacing so we can reuse them everywhere and change
+   the whole site's look by editing values in one place.
+
+   The [data-theme="dark"] block further down overrides these
+   same variable names for dark mode — every element that uses
+   var(--color-bg) etc. switches automatically, no extra CSS needed.
+   ========================================================== */
+:root {
+  --color-primary: #22c55e;
+  --color-primary-dark: #15803d;
+  --color-accent: #4ade80;
+  --color-dark: #1e1b2e;
+  --color-text: #2d2d3a;
+  --color-text-light: #6b6b7b;
+  --color-bg: #ffffff;
+  --color-bg-alt: #f7f6fb;
+  --color-border: #e6e4f0;
+  --navbar-bg: rgba(255, 255, 255, 0.85);
+  --shadow-color: rgba(34, 197, 94, 0.25);
+
+  --font-main: "Poppins", "Segoe UI", system-ui, sans-serif;
+
+  --max-width: 1100px;
+  --radius: 14px;
+  --transition: 0.25s ease;
+  --theme-transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+/* Arabic uses a different typeface (Tajawal) since Poppins has no Arabic glyphs.
+   Because every element already reads its font from var(--font-main), this one
+   override switches the whole site's font when <html lang="ar"> is set. */
+:root[lang="ar"] {
+  --font-main: "Tajawal", "Segoe UI", Tahoma, sans-serif;
+}
+
+/* Dark mode palette. Applied when JS sets data-theme="dark" on <html>. */
+:root[data-theme="dark"] {
+  --color-dark: #f1f0fa;
+  --color-text: #eceaf6;
+  --color-text-light: #a6a3bd;
+  --color-bg: #14121f;
+  --color-bg-alt: #1c1a2b;
+  --color-border: #2f2c42;
+  --navbar-bg: rgba(20, 18, 31, 0.85);
+  --shadow-color: rgba(34, 197, 94, 0.35);
+}
+
+/* Reset default browser spacing so layouts are predictable */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth; /* smooth scrolling when clicking nav links */
+}
+
+body {
+  font-family: var(--font-main);
+  color: var(--color-text);
+  background: var(--color-bg);
+  line-height: 1.6;
+  transition: var(--theme-transition);
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+ul {
+  list-style: none;
+}
+
+/* Reusable content wrapper: centers content and caps its width */
+.section-container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 80px 24px;
+}
+
+.section-title {
+  font-size: 2rem;
+  font-weight: 600;
+  text-align: center;
+}
+
+/* Small gradient accent line under every section title, for a more premium feel */
+.section-title::after {
+  content: "";
+  display: block;
+  width: 60px;
+  height: 4px;
+  margin: 16px auto 2rem;
+  border-radius: 4px;
+  background: linear-gradient(135deg, var(--color-primary), var(--color-accent));
+}
+
+/* ==========================================================
+   2. BUTTONS
+   ========================================================== */
+.btn {
+  display: inline-block;
+  padding: 14px 32px;
+  border-radius: 50px;
+  font-weight: 500;
+  font-size: 1rem;
+  border: none;
+  cursor: pointer;
+  transition: transform var(--transition), box-shadow var(--transition);
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark));
+  color: #fff;
+  box-shadow: 0 8px 20px var(--shadow-color);
+}
+
+.btn-primary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 28px var(--shadow-color);
+}
+
+/* ==========================================================
+   3. NAVBAR
+   ========================================================== */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: var(--navbar-bg);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--color-border);
+  z-index: 100;
+  transition: var(--theme-transition);
+}
+
+.nav-container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 18px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo {
+  font-weight: 700;
+  font-size: 1.2rem;
+  color: var(--color-primary-dark);
+}
+
+.nav-links {
+  display: flex;
+  gap: 2rem;
+}
+
+.nav-links a {
+  font-weight: 500;
+  color: var(--color-text);
+  transition: color var(--transition);
+}
+
+.nav-links a:hover {
+  color: var(--color-primary);
+}
+
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* Round sun/moon button that switches light and dark mode */
+.theme-toggle {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  background: var(--color-bg-alt);
+  border: 1px solid var(--color-border);
+  border-radius: 50%;
+  cursor: pointer;
+  transition: transform var(--transition), background-color var(--transition), border-color var(--transition);
+}
+
+.theme-toggle:hover {
+  transform: rotate(15deg) scale(1.08);
+}
+
+/* Text button that switches between English and Arabic */
+.lang-toggle {
+  height: 40px;
+  padding: 0 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Tajawal", var(--font-main);
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--color-text);
+  background: var(--color-bg-alt);
+  border: 1px solid var(--color-border);
+  border-radius: 50px;
+  cursor: pointer;
+  transition: transform var(--transition), var(--theme-transition);
+}
+
+.lang-toggle:hover {
+  transform: translateY(-2px);
+}
+
+/* Arabic doesn't have letter case, so the uppercase styling on the hero
+   greeting is turned off when the page is in Arabic. */
+[lang="ar"] .hero-greeting {
+  text-transform: none;
+  letter-spacing: 0;
+}
+
+/* Hamburger icon: hidden on desktop, shown on mobile (see media query below) */
+.menu-toggle {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+}
+
+.menu-toggle span {
+  width: 24px;
+  height: 2px;
+  background: var(--color-dark);
+  border-radius: 2px;
+  transition: transform var(--transition), opacity var(--transition), background-color var(--transition);
+}
+
+/* ==========================================================
+   4. HERO / WELCOME SECTION
+   ========================================================== */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 120px 24px 80px;
+  background: radial-gradient(circle at top right, rgba(34, 197, 94, 0.14), transparent 60%),
+              radial-gradient(circle at bottom left, rgba(74, 222, 128, 0.14), transparent 60%),
+              var(--color-bg);
+  transition: var(--theme-transition);
+}
+
+/* Fades and lifts the whole hero in on page load. Runs once automatically,
+   so it doesn't need JavaScript or a scroll trigger like the sections below. */
+.hero-content {
+  animation: heroFadeIn 1s ease both;
+}
+
+@keyframes heroFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.hero-photo {
+  width: 150px;
+  height: 150px;
+  margin: 0 auto 28px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 4px solid #fff;
+  box-shadow: 0 20px 40px var(--shadow-color);
+}
+
+.hero-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.hero-greeting {
+  color: var(--color-primary);
+  font-weight: 500;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  font-size: 0.9rem;
+  margin-bottom: 12px;
+}
+
+.hero-name {
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  font-weight: 700;
+  background: linear-gradient(135deg, var(--color-primary), var(--color-accent));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  margin-bottom: 16px;
+}
+
+.hero-tagline {
+  color: var(--color-text-light);
+  font-size: 1.15rem;
+  margin-bottom: 36px;
+}
+
+/* ==========================================================
+   5. ABOUT SECTION
+   ========================================================== */
+.about {
+  background: var(--color-bg-alt);
+  transition: var(--theme-transition);
+}
+
+.about-content {
+  display: flex;
+  align-items: center;
+  gap: 3rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.about-avatar {
+  flex-shrink: 0;
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3rem;
+  font-weight: 700;
+  color: #fff;
+  background: linear-gradient(135deg, var(--color-primary), var(--color-accent));
+  box-shadow: 0 15px 30px var(--shadow-color);
+}
+
+.about-text {
+  flex: 1 1 400px;
+}
+
+.about-text p {
+  margin-bottom: 1rem;
+  color: var(--color-text-light);
+}
+
+.skills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 1.5rem;
+}
+
+.skill-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  padding: 8px 18px;
+  border-radius: 50px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--color-primary-dark);
+  transition: transform var(--transition), box-shadow var(--transition), var(--theme-transition);
+}
+
+.skill-tag:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 18px var(--shadow-color);
+}
+
+.skill-icon {
+  font-size: 1.05rem;
+  line-height: 1;
+}
+
+/* ==========================================================
+   6. MY GOALS SECTION
+   ========================================================== */
+.goals {
+  background: var(--color-bg);
+  transition: var(--theme-transition);
+}
+
+/* auto-fit + minmax means the grid adds/removes columns by itself as the
+   screen shrinks or grows — no extra media query needed for this part. */
+.goals-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.5rem;
+}
+
+.goal-card {
+  background: var(--color-bg-alt);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: 2rem 1.5rem;
+  text-align: center;
+  transition: transform var(--transition), box-shadow var(--transition), var(--theme-transition);
+}
+
+.goal-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 40px var(--shadow-color);
+}
+
+.goal-icon {
+  font-size: 2.2rem;
+  margin-bottom: 1rem;
+}
+
+.goal-card h3 {
+  font-size: 1.05rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.goal-card p {
+  color: var(--color-text-light);
+  font-size: 0.9rem;
+}
+
+/* ==========================================================
+   7. CONTACT SECTION
+   ========================================================== */
+.section-subtitle {
+  text-align: center;
+  color: var(--color-text-light);
+  margin-top: -1.5rem;
+  margin-bottom: 2.5rem;
+}
+
+.contact-form {
+  max-width: 560px;
+  margin: 0 auto;
+  background: var(--color-bg-alt);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: 2.5rem;
+  box-shadow: 0 20px 45px rgba(20, 18, 31, 0.06);
+  transition: var(--theme-transition);
+}
+
+.form-group {
+  margin-bottom: 1.4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.form-group label {
+  font-weight: 500;
+  font-size: 0.9rem;
+}
+
+.form-group input,
+.form-group textarea {
+  font-family: var(--font-main);
+  font-size: 1rem;
+  padding: 12px 14px;
+  border-radius: 10px;
+  border: 1px solid var(--color-border);
+  background: var(--color-bg);
+  color: var(--color-text);
+  resize: vertical;
+  transition: border-color var(--transition), box-shadow var(--transition), var(--theme-transition);
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px var(--shadow-color);
+}
+
+.contact-form .btn {
+  width: 100%;
+}
+
+.form-status {
+  margin-top: 1rem;
+  text-align: center;
+  font-weight: 500;
+  min-height: 1.2em;
+}
+
+.form-status.success {
+  color: #00b894;
+}
+
+.form-status.error {
+  color: #e17055;
+}
+
+/* ==========================================================
+   8. FOOTER
+   ========================================================== */
+.footer {
+  text-align: center;
+  padding: 2rem;
+  color: var(--color-text-light);
+  font-size: 0.9rem;
+  border-top: 1px solid var(--color-border);
+  transition: var(--theme-transition);
+}
+
+.social-links {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 1.25rem;
+}
+
+.social-icon {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  border: 1px solid var(--color-border);
+  color: var(--color-text-light);
+  transition: transform var(--transition), color var(--transition), border-color var(--transition), var(--theme-transition);
+}
+
+.social-icon:hover {
+  transform: translateY(-3px);
+  color: var(--color-primary);
+  border-color: var(--color-primary);
+}
+
+/* ==========================================================
+   9. SCROLL-IN ANIMATIONS
+   Elements with the "reveal" class start hidden and slightly
+   lowered. script.js watches them with an IntersectionObserver
+   and adds "visible" the moment they scroll into view, which
+   triggers this transition.
+   ========================================================== */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* ==========================================================
+   10. RESPONSIVE LAYOUT (PHONES & TABLETS)
+   Below 768px wide, we switch the nav into a hamburger menu
+   and stack the About section vertically.
+   ========================================================== */
+@media (max-width: 768px) {
+  .nav-links {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background: var(--color-bg);
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height var(--transition), var(--theme-transition);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .nav-links.open {
+    max-height: 300px;
+  }
+
+  .nav-links a {
+    padding: 16px 0;
+    width: 100%;
+    text-align: center;
+  }
+
+  .menu-toggle {
+    display: flex;
+  }
+
+  /* Turn the hamburger into an "X" when the menu is open */
+  .menu-toggle.open span:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+  }
+  .menu-toggle.open span:nth-child(2) {
+    opacity: 0;
+  }
+  .menu-toggle.open span:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
+  }
+
+  .about-content {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .contact-form {
+    padding: 1.75rem;
+  }
+
+  .hero-photo {
+    width: 120px;
+    height: 120px;
+  }
+
+  .section-container {
+    padding: 60px 20px;
+  }
+
+  .goal-card {
+    padding: 1.75rem 1.25rem;
+  }
+}
+
+/* Extra-small phones: tighten up the navbar so the logo, language button,
+   theme button, and hamburger all fit comfortably on one line. */
+@media (max-width: 420px) {
+  .nav-container {
+    padding: 14px 16px;
+  }
+
+  .nav-actions {
+    gap: 8px;
+  }
+
+  .lang-toggle {
+    padding: 0 12px;
+    font-size: 0.75rem;
+    height: 36px;
+  }
+
+  .theme-toggle {
+    width: 36px;
+    height: 36px;
+  }
+
+  .menu-toggle {
+    padding: 6px;
+  }
+
+  .logo {
+    font-size: 1rem;
+  }
+}

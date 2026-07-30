@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Khalfan | Personal Website</title>
+
+  <!-- Runs immediately (before the page paints) so dark mode and the chosen
+       language apply instantly, with no flash of the wrong version first.
+       Reads saved choices from localStorage, or falls back to sensible defaults. -->
+  <script>
+    (function () {
+      var savedTheme = localStorage.getItem("theme");
+      var prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+      document.documentElement.setAttribute("data-theme", savedTheme || (prefersDark ? "dark" : "light"));
+
+      var savedLang = localStorage.getItem("lang") || "en";
+      document.documentElement.setAttribute("lang", savedLang);
+      document.documentElement.setAttribute("dir", savedLang === "ar" ? "rtl" : "ltr");
+    })();
+  </script>
+
+  <!-- Google Fonts: Poppins for English, Tajawal for Arabic. Falls back to a system font if offline. -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet" />
+
+  <!-- Our own stylesheet, written in style.css -->
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ============ NAVBAR ============ -->
+  <header class="navbar">
+    <div class="nav-container">
+      <a href="#home" class="logo" data-i18n="name">Khalfan</a>
+
+      <nav class="nav-links" id="navLinks">
+        <a href="#home" data-i18n="nav_home">Home</a>
+        <a href="#about" data-i18n="nav_about">About</a>
+        <a href="#goals" data-i18n="nav_goals">Goals</a>
+        <a href="#contact" data-i18n="nav_contact">Contact</a>
+      </nav>
+
+      <!-- Hamburger button, only visible on small screens (see style.css) -->
+      <div class="nav-actions">
+        <button class="lang-toggle" id="langToggle" aria-label="Switch language">العربية</button>
+
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">🌙</button>
+
+        <button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation menu">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ============ WELCOME / HERO SECTION ============ -->
+  <section id="home" class="hero">
+    <div class="hero-content">
+      <!-- Placeholder profile photo. Swap it for a real one anytime by adding
+           your own image to the assets folder and changing the src path below
+           (e.g. src="assets/profile.jpg"). -->
+      <div class="hero-photo">
+        <img src="assets/profile-placeholder.svg" alt="Photo of Khalfan" />
+      </div>
+
+      <p class="hero-greeting" data-i18n="hero_greeting">Hello, I'm</p>
+      <h1 class="hero-name" data-i18n="name">Khalfan</h1>
+      <p class="hero-tagline" data-i18n="hero_tagline">Learning to Code &middot; AI Enthusiast &middot; Real Madrid Fan</p>
+      <a href="#about" class="btn btn-primary" data-i18n="hero_cta">Learn More About Me</a>
+    </div>
+  </section>
+
+  <!-- ============ ABOUT ME SECTION ============ -->
+  <section id="about" class="about">
+    <div class="section-container">
+      <h2 class="section-title reveal" data-i18n="about_title">About Me</h2>
+
+      <div class="about-content">
+        <!-- A simple circle with initials, so you don't need a photo to get started -->
+        <div class="about-avatar reveal">K</div>
+
+        <div class="about-text reveal">
+          <p data-i18n="about_p1">
+            Hi! I'm <strong>Khalfan</strong>. I love travelling with my family,
+            watching Real Madrid, learning about AI, and improving my English.
+          </p>
+          <p data-i18n="about_p2">
+            I'm currently learning programming with Claude Code, and this website
+            is one of the first steps on that journey.
+          </p>
+
+          <div class="skills">
+            <span class="skill-tag"><span class="skill-icon" aria-hidden="true">✈️</span><span data-i18n="skill_travel">Travelling</span></span>
+            <span class="skill-tag"><span class="skill-icon" aria-hidden="true">⚽</span><span data-i18n="skill_madrid">Real Madrid</span></span>
+            <span class="skill-tag"><span class="skill-icon" aria-hidden="true">🤖</span><span data-i18n="skill_ai">AI</span></span>
+            <span class="skill-tag"><span class="skill-icon" aria-hidden="true">🗣️</span><span data-i18n="skill_english">English</span></span>
+            <span class="skill-tag"><span class="skill-icon" aria-hidden="true">💻</span><span data-i18n="skill_claude">Claude Code</span></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ MY GOALS SECTION ============ -->
+  <section id="goals" class="goals">
+    <div class="section-container">
+      <h2 class="section-title reveal" data-i18n="goals_title">My Goals</h2>
+      <p class="section-subtitle" data-i18n="goals_subtitle">A few things I'm working towards.</p>
+
+      <div class="goals-grid">
+        <div class="goal-card reveal">
+          <div class="goal-icon" aria-hidden="true">🎯</div>
+          <h3 data-i18n="goal1_title">Master Programming</h3>
+          <p data-i18n="goal1_desc">Build real projects using Claude Code and grow as a developer.</p>
+        </div>
+
+        <div class="goal-card reveal">
+          <div class="goal-icon" aria-hidden="true">🗣️</div>
+          <h3 data-i18n="goal2_title">Improve My English</h3>
+          <p data-i18n="goal2_desc">Practice every day until I can speak and write fluently.</p>
+        </div>
+
+        <div class="goal-card reveal">
+          <div class="goal-icon" aria-hidden="true">🤖</div>
+          <h3 data-i18n="goal3_title">Learn AI</h3>
+          <p data-i18n="goal3_desc">Dive deeper into artificial intelligence and how it works.</p>
+        </div>
+
+        <div class="goal-card reveal">
+          <div class="goal-icon" aria-hidden="true">✈️</div>
+          <h3 data-i18n="goal4_title">Travel More</h3>
+          <p data-i18n="goal4_desc">Explore new places with my family and create memories.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CONTACT SECTION ============ -->
+  <section id="contact" class="contact">
+    <div class="section-container">
+      <h2 class="section-title reveal" data-i18n="contact_title">Contact Me</h2>
+      <p class="section-subtitle" data-i18n="contact_subtitle">Have a question or just want to say hi? Send me a message below.</p>
+
+      <form id="contactForm" class="contact-form reveal" novalidate>
+        <div class="form-group">
+          <label for="name" data-i18n="label_name">Name</label>
+          <input type="text" id="name" name="name" placeholder="Your name" data-i18n-placeholder="placeholder_name" required />
+        </div>
+
+        <div class="form-group">
+          <label for="email" data-i18n="label_email">Email</label>
+          <input type="email" id="email" name="email" placeholder="you@example.com" required />
+        </div>
+
+        <div class="form-group">
+          <label for="message" data-i18n="label_message">Message</label>
+          <textarea id="message" name="message" rows="5" placeholder="Write your message here..." data-i18n-placeholder="placeholder_message" required></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-primary" data-i18n="btn_send">Send Message</button>
+
+        <!-- JavaScript will show a success/error message in here -->
+        <p id="formStatus" class="form-status" role="status"></p>
+      </form>
+    </div>
+  </section>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="footer">
+    <!-- Social icons. Replace the href="#" placeholders with your real profile
+         links (and the mailto: address with your real email) whenever you're ready. -->
+    <div class="social-links">
+      <a href="#" class="social-icon" aria-label="Instagram" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" width="20" height="20"><rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor"/></svg>
+      </a>
+      <a href="#" class="social-icon" aria-label="X (Twitter)" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" width="20" height="20"><line x1="4" y1="4" x2="20" y2="20" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><line x1="20" y1="4" x2="4" y2="20" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      </a>
+      <a href="#" class="social-icon" aria-label="LinkedIn" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" width="20" height="20"><rect x="3" y="3" width="18" height="18" rx="4" fill="none" stroke="currentColor" stroke-width="2"/><line x1="7" y1="10" x2="7" y2="17" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="7" cy="6.5" r="1.2" fill="currentColor"/><path d="M11 17v-4.5c0-1.5 1-2.5 2.5-2.5S16 11 16 12.5V17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+      <a href="mailto:you@example.com" class="social-icon" aria-label="Email">
+        <svg viewBox="0 0 24 24" width="20" height="20"><path d="M4 4h16v16H4z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M4 6l8 7 8-7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+    </div>
+
+    <p>&copy; <span id="year"></span> <span data-i18n="name">Khalfan</span>. <span data-i18n="footer_rights">All rights reserved.</span></p>
+  </footer>
+
+  <!-- Our own JavaScript, written in script.js. Loaded last so the page content exists first. -->
+  <script src="script.js"></script>
+</body>
+</html>
