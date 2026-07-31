@@ -126,8 +126,8 @@ ul {
 }
 
 .btn-primary:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 12px 28px var(--shadow-color);
+  transform: translateY(-10px);
+  box-shadow: 0 20px 40px var(--shadow-color);
 }
 
 /* ==========================================================
