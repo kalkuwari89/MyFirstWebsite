@@ -9,7 +9,7 @@
    var(--color-bg) etc. switches automatically, no extra CSS needed.
    ========================================================== */
 :root {
-  --color-primary: #22c55e;
+  --color-primary: Red;
   --color-primary-dark: #15803d;
   --color-accent: #4ade80;
   --color-dark: #1e1b2e;
@@ -110,7 +110,7 @@ ul {
    ========================================================== */
 .btn {
   display: inline-block;
-  padding: 14px 32px;
+  padding: 36px 80px;
   border-radius: 100px;
   font-weight: 500;
   font-size: 1rem;
@@ -307,10 +307,10 @@ ul {
 }
 
 .hero-name {
-  font-size: clamp(1.25rem, 3vw, 2.25rem);
+  font-size: clamp(1.25rem, 3vw, 2.5rem);
   font-weight: 1000;
-  color: red;
-  margin-bottom: 16px;
+  color: purple;
+  margin-bottom: 40px;
 }
 
 .hero-tagline {
