@@ -9,7 +9,7 @@
    var(--color-bg) etc. switches automatically, no extra CSS needed.
    ========================================================== */
 :root {
-  --color-primary: Red;
+  --color-primary: #22c55e;
   --color-primary-dark: #15803d;
   --color-accent: #4ade80;
   --color-dark: #1e1b2e;
@@ -110,7 +110,7 @@ ul {
    ========================================================== */
 .btn {
   display: inline-block;
-  padding: 36px 80px;
+  padding: 38px 82px;
   border-radius: 100px;
   font-weight: 500;
   font-size: 1rem;
@@ -309,7 +309,7 @@ ul {
 .hero-name {
   font-size: clamp(1.25rem, 3vw, 2.5rem);
   font-weight: 1000;
-  color: purple;
+  color: blue;
   margin-bottom: 40px;
 }
 
@@ -432,6 +432,50 @@ ul {
 }
 
 .goal-card p {
+  color: var(--color-text-light);
+  font-size: 0.9rem;
+}
+
+/* ==========================================================
+   6b. INTERESTS SECTION
+   ========================================================== */
+.interests {
+  background: var(--color-bg-alt);
+  transition: var(--theme-transition);
+}
+
+.interests-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.5rem;
+}
+
+.interest-card {
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: 2rem 1.5rem;
+  text-align: center;
+  transition: transform var(--transition), box-shadow var(--transition), var(--theme-transition);
+}
+
+.interest-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 40px var(--shadow-color);
+}
+
+.interest-icon {
+  font-size: 2.2rem;
+  margin-bottom: 1rem;
+}
+
+.interest-card h3 {
+  font-size: 1.05rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.interest-card p {
   color: var(--color-text-light);
   font-size: 0.9rem;
 }
