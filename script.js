@@ -238,3 +238,22 @@ contactForm.addEventListener("submit", (event) => {
 // notice never needs to be updated by hand.
 // ==========================================================
 document.getElementById("year").textContent = new Date().getFullYear();
+
+// ==========================================================
+// 7. BACK TO TOP BUTTON
+// Appears once you've scrolled down the page; clicking it
+// smoothly scrolls back to the top.
+// ==========================================================
+const backToTop = document.getElementById("backToTop");
+
+window.addEventListener("scroll", () => {
+  if (window.scrollY > 300) {
+    backToTop.classList.add("visible");
+  } else {
+    backToTop.classList.remove("visible");
+  }
+});
+
+backToTop.addEventListener("click", () => {
+  window.scrollTo({ top: 0, behavior: "smooth" });
+});

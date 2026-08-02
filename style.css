@@ -608,6 +608,36 @@ ul {
 }
 
 /* ==========================================================
+   BACK TO TOP BUTTON
+   Hidden by default. script.js adds the "visible" class once
+   you've scrolled down the page, and removes it near the top.
+   ========================================================== */
+.back-to-top {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  width: 44px;
+  height: 44px;
+  border: none;
+  border-radius: 50%;
+  background-color: var(--color-primary);
+  color: #fff;
+  font-size: 1.25rem;
+  cursor: pointer;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(10px);
+  transition: opacity var(--transition), transform var(--transition);
+  z-index: 90;
+}
+
+.back-to-top.visible {
+  opacity: 1;
+  pointer-events: auto;
+  transform: none;
+}
+
+/* ==========================================================
    10. RESPONSIVE LAYOUT (PHONES & TABLETS)
    Below 768px wide, we switch the nav into a hamburger menu
    and stack the About section vertically.
